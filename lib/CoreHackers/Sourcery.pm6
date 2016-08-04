@@ -9,6 +9,8 @@ constant $Setting-Prefix
 constant $Commit
     = $*PERL.compiler.version.Str.subst('.', '', :g).split('g')[*-1];
 
+my %Cache;
+
 #### Main method/sub
 
 augment class Code {
@@ -44,17 +46,22 @@ multi sourcery (&code, Capture $c) is export {
 sub do-sourcery (&code) {
     my $location = real-location-for &code;
     my ($line, $url) = github-url-for |$location<file line>;
-    [~] $location<file>, ':', $line, ' ', $url;
+    ([~] $location<file>, ':', $line), $url;
 }
 
 sub github-url-for ($file, $line is copy) {
     return '' if %*ENV<SOURCERY_NO_GITHUB>;
 
-    my $res = HTTP::UserAgent.new.get: [~] $Raw-URL, $Commit, '/', $file;
-    fail "Failed to fetch GitHub content: $res.status-line()"
-        unless $res.is-success;
+    my $url = [~] $Raw-URL, $Commit, '/', $file;
 
-    $line = adjusted-line-number $res.content, $line;
+    my $content = %Cache{$url} // do {
+        my $res = HTTP::UserAgent.new.get: $url;
+        fail "Failed to fetch GitHub content: $res.status-line()"
+            unless $res.is-success;
+        %Cache{$url} = $res.content;
+    }
+
+    $line = adjusted-line-number $content, $line;
     return $line, [~] $GitHub-URL, $Commit, '/', $file, '#L', $line;
 }
 

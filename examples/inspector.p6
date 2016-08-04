@@ -1,4 +1,5 @@
 use lib <lib>;
 use CoreHackers::Sourcery;
 
-put sourcery 42, 'abs', \(42);
+&say.sourcery.put;
+put sourcery 42, 'base', \(16);
