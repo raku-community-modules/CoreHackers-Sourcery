@@ -8,7 +8,8 @@
     ],
     "test-depends" : [
         "Test",
-        "Test::When"
+        "Test::When",
+        "Test::META"
     ],
     "provides"     : {
         "CoreHackers::Sourcery" : "lib/CoreHackers/Sourcery.pm6"
