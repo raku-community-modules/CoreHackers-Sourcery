@@ -1,4 +1,4 @@
 use lib <lib>;
 use CoreHackers::Sourcery;
 
-put &unival.sourcery;
+put sourcery 42, 'abs', \(42);

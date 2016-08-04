@@ -13,20 +13,39 @@ constant $Commit
 
 augment class Code {
     multi method sourcery      { sourcery self;     }
-    multi method sourcery (|c) { sourcery self, |c; }
+    multi method sourcery (|c) { sourcery self, c; }
 }
 
 .^compose
     for Block, WhateverCode, Routine, Macro, Method, Sub, Submethod, Regex;
 
-sub sourcery (&code, |c) is export {
-    my $candidate = &code.cando: c;
-    my $location = real-location-for $candidate[0];
-    my ($line, $url) = github-url-for |$location<file line>;
-    [~] $location<file>, ':', $line, ' ', $url;
+multi sourcery ($thing, Str:D $method, Capture $c) is export {
+    my $code = gather {
+        for $thing.^can($method) -> $meth {
+            .take for grep *.defined, $meth.cando: \($thing, |$c);
+        }
+    }
+    do-sourcery $code[0]
+        // die "Could not find candidate that can do {$c.gist}";
+}
+
+multi sourcery ($thing, Str:D $method) is export {
+    do-sourcery $thing.^can($method)[0];
+}
+
+multi sourcery (&code)             is export { do-sourcery &code }
+multi sourcery (&code, Capture $c) is export {
+    do-sourcery &code.cando($c)[0]
+        // die "Could not find candidate that can do {$c.gist}";
 }
 
 #### Auxiliary subs
+
+sub do-sourcery (&code) {
+    my $location = real-location-for &code;
+    my ($line, $url) = github-url-for |$location<file line>;
+    [~] $location<file>, ':', $line, ' ', $url;
+}
 
 sub github-url-for ($file, $line is copy) {
     return '' if %*ENV<SOURCERY_NO_GITHUB>;
