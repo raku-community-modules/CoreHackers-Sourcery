@@ -12,16 +12,16 @@ constant $Commit
 #### Main method/sub
 
 augment class Code {
-    method sourcery {
-        sourcery self;
-    }
+    multi method sourcery      { sourcery self;     }
+    multi method sourcery (|c) { sourcery self, |c; }
 }
 
 .^compose
     for Block, WhateverCode, Routine, Macro, Method, Sub, Submethod, Regex;
 
-sub sourcery (&code) is export {
-    my $location = real-location-for &code;
+sub sourcery (&code, |c) is export {
+    my $candidate = &code.cando: c;
+    my $location = real-location-for $candidate[0];
     my ($line, $url) = github-url-for |$location<file line>;
     [~] $location<file>, ':', $line, ' ', $url;
 }
