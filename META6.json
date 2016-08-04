@@ -4,13 +4,14 @@
     "version"      : "1.001001",
     "description"  : "Helper for showing actual source code locations of core subs and methods",
     "depends"      : [
+        "HTTP::UserAgent"
     ],
     "test-depends" : [
         "Test",
-        "Test::When",
+        "Test::When"
     ],
     "provides"     : {
-        "CoreHackers::Sourcery" : "lib/CoreHackers/Sourcery.pm6",
+        "CoreHackers::Sourcery" : "lib/CoreHackers/Sourcery.pm6"
     },
     "authors"       : ["Zoffix Znet"],
     "support"       : {"source"   : "git://github.com/zoffixznet/perl6-CoreHackers-Sourcery.git"}
