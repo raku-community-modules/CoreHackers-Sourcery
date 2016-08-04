@@ -50,8 +50,6 @@ sub do-sourcery (&code) {
 }
 
 sub github-url-for ($file, $line is copy) {
-    return '' if %*ENV<SOURCERY_NO_GITHUB>;
-
     my $url = [~] $Raw-URL, $Commit, '/', $file;
 
     my $content = %Cache{$url} // do {
