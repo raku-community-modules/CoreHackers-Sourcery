@@ -4,7 +4,8 @@
     "version"      : "1.001001",
     "description"  : "Helper for showing actual source code locations of core subs and methods",
     "depends"      : [
-        "HTTP::UserAgent"
+        "HTTP::UserAgent",
+        "IO::Socket::SSL"
     ],
     "test-depends" : [
         "Test",
