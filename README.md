@@ -34,7 +34,8 @@ Related blog post:
 
 # ONLINE ACCESS
 
-This module requires access to GitHub. Read the above blogpost to learn why.
+If you use Rakudo earlier than [v2016.07.1.128.g.715.b.822](https://github.com/rakudo/rakudo/commit/715b822bfd7dc66efbf041e19d11cf4841fbf12f),
+this module requires access to GitHub. Read the above blogpost to learn why.
 
 # METHODS
 

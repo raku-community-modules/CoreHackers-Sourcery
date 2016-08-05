@@ -59,7 +59,11 @@ sub github-url-for ($file, $line is copy) {
         %Cache{$url} = $res.content;
     }
 
-    $line = adjusted-line-number $content, $line;
+    # The v2016.07.1.128.g.715.b.822 had a fix for setting generator go in
+    # so the line numbers will match up and we do not need to adjust anything
+    $line = adjusted-line-number $content, $line
+        if $*PERL.compiler.version before v2016.07.1.128.g.715.b.822;
+
     return $line, [~] $GitHub-URL, $Commit, '/', $file, '#L', $line;
 }
 
