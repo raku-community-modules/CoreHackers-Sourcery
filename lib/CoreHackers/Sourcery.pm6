@@ -1,7 +1,3 @@
-unit module CoreHackers::Sourcery;
-use MONKEY-TYPING;
-use HTTP::UserAgent;
-
 constant $Raw-URL    = 'https://raw.githubusercontent.com/rakudo/rakudo/';
 constant $GitHub-URL = 'https://github.com/rakudo/rakudo/blob/';
 constant $Setting-Prefix
@@ -11,17 +7,24 @@ constant $Commit
 
 my %Cache;
 
-#### Main method/sub
+sub EXPORT {
+    use MONKEY-TYPING;
+    use HTTP::UserAgent;
 
-augment class Code {
-    multi method sourcery      { sourcery self;     }
-    multi method sourcery (|c) { sourcery self, c; }
+    #### Main method/sub
+
+    augment class Code {
+        multi method sourcery      { sourcery self;     }
+        multi method sourcery (|c) { sourcery self, c; }
+    }
+
+    .^compose
+        for Block, WhateverCode, Routine, Macro, Method, Sub, Submethod, Regex;
+
+    return { '&sourcery' => &sourcery };
 }
 
-.^compose
-    for Block, WhateverCode, Routine, Macro, Method, Sub, Submethod, Regex;
-
-multi sourcery ($thing, Str:D $method, Capture $c) is export {
+multi sourcery ($thing, Str:D $method, Capture $c) {
     my $code = gather {
         for $thing.^can($method) -> $meth {
             .take for grep *.defined, $meth.cando: \($thing, |$c);
@@ -31,12 +34,9 @@ multi sourcery ($thing, Str:D $method, Capture $c) is export {
         // die "Could not find candidate that can do {$c.gist}";
 }
 
-multi sourcery ($thing, Str:D $method) is export {
-    do-sourcery $thing.^can($method)[0];
-}
-
-multi sourcery (&code)             is export { do-sourcery &code }
-multi sourcery (&code, Capture $c) is export {
+multi sourcery ($thing, Str:D $method) { do-sourcery $thing.^can($method)[0]; }
+multi sourcery (&code                ) { do-sourcery &code }
+multi sourcery (&code, Capture $c    ) {
     do-sourcery &code.cando($c)[0]
         // die "Could not find candidate that can do {$c.gist}";
 }
