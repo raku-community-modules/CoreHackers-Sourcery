@@ -75,14 +75,12 @@ core file and the GitHub URL.
 
 # ENVIRONMENTAL VARIABLES
 
-## `SOURCERY_SETTING_PREFIX`
+## `SOURCERY_SETTING`
 
-The prefix of where your setting is located at; that is, if you append the
-value of `&say.file.say` to it, you'd get the full path to the setting file.
-Defaults to:
+The location of the setting file. Defaults to:
 
 ```perl6
-    $*EXECUTABLE.parent.parent.parent
+    $*EXECUTABLE.parent.parent.parent.child(&say.file)
 ```
 
 This will generally work for most installs.

@@ -1,6 +1,9 @@
 constant $GitHub-URL = 'https://github.com/rakudo/rakudo/blob/';
-constant $Setting-Prefix
-    = (%*ENV<SOURCERY_SETTING_PREFIX> // $*EXECUTABLE.parent.parent.parent).IO;
+constant $Setting = (
+    %*ENV<SOURCERY_SETTING>
+        // $*EXECUTABLE.parent.parent.parent.child(&say.file)
+).IO;
+
 constant $Commit
     = $*PERL.compiler.version.Str.subst('.', '', :g).split('g')[*-1];
 
@@ -54,7 +57,7 @@ sub real-location-for (&code) {
     my $line-num = 0;
     my $file;
     my $offset;
-    for $Setting-Prefix.child(&code.file).IO.lines -> $line {
+    for $Setting.lines -> $line {
         $line-num++;
         return { :$file, :line($line-num - $offset), } if $line-num == $wanted;
         if $line ~~ /^ '#line 1 ' $<file>=\S+/ {
