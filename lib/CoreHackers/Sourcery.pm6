@@ -1,5 +1,5 @@
 constant $GitHub-URL = 'https://github.com/rakudo/rakudo/blob/';
-constant $Setting = (
+my $Setting = (
     %*ENV<SOURCERY_SETTING>
         // $*EXECUTABLE.parent.parent.parent.child(&say.file)
 ).IO;
