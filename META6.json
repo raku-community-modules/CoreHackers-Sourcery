@@ -1,7 +1,7 @@
 {
     "perl"         : "6.c",
     "name"         : "CoreHackers::Sourcery",
-    "version"      : "2.001003",
+    "version"      : "2.001004",
     "description"  : "Helper for showing actual source code locations of core subs and methods",
     "depends"      : [ ],
     "test-depends" : [

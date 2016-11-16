@@ -57,6 +57,13 @@ sub real-location-for (&code) {
     my $line-num = 0;
     my $file;
     my $offset;
+
+    # Newer compilers return proper file/line number
+    if $*PERL.compiler.version after v2016.10.286.g.2.e.9.e.89.b {
+        $file = &code.file.substr: 9;
+        return { :$file, :line($wanted), };
+    }
+
     for $Setting.lines -> $line {
         $line-num++;
         return { :$file, :line($line-num - $offset), } if $line-num == $wanted;
