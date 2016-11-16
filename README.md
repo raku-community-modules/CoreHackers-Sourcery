@@ -20,6 +20,14 @@ CoreHackers::Sourcery - Show source locations of core methods and subs
 
 # DESCRIPTION
 
+------
+
+Update: as of Rakudo v2016.10.286.g.2.e.9.e.89.b, the .line and .file reported
+by the methods indicate original files, making this module less useful... but
+still working.
+
+------
+
 When calling `.line` or `.file` on core `Code` objects, you get a line
 in the setting. The setting is a giant file, so such information is not
 ideal when trying to locate the place to edit the code.
