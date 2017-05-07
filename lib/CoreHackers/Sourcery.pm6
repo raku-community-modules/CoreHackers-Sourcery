@@ -4,8 +4,11 @@ my $Setting = (
         // $*EXECUTABLE.parent.parent.parent.child(&say.file)
 ).IO;
 
-constant $Commit
-    = $*PERL.compiler.version.Str.subst('.', '', :g).split('g')[*-1];
+constant $Commit = do with $*PERL.compiler.version.Str -> $v is copy {
+    # remove dots if we have a non-release version; `.g` seps commit SHA
+    $v .= subst: '.', '', :g if $v.contains: '.g';
+    $v.split('g')[*-1];
+}
 
 sub EXPORT {
     use MONKEY-TYPING;
