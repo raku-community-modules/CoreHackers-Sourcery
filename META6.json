@@ -2,7 +2,7 @@
     "perl"         : "6.c",
     "name"         : "CoreHackers::Sourcery",
     "license"      : "Artistic-2.0",
-    "version"      : "2.001004",
+    "version"      : "2.001005",
     "description"  : "Helper for showing actual source code locations of core subs and methods",
     "depends"      : [ ],
     "test-depends" : [
