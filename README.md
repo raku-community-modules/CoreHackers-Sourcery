@@ -93,12 +93,12 @@ This will generally work for most installs.
 #### REPOSITORY
 
 Fork this module on GitHub:
-https://github.com/zoffixznet/perl6-CoreHackers-Sourcery
+https://github.com/raku-community-module/perl6-CoreHackers-Sourcery
 
 #### BUGS
 
 To report bugs or request features, please use
-https://github.com/zoffixznet/perl6-CoreHackers-Sourcery/issues
+https://github.com/raku-community-module/perl6-CoreHackers-Sourcery/issues
 
 #### AUTHOR
 
