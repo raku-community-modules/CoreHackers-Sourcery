@@ -63,6 +63,8 @@ like sourcery(42, 'base', \(16)).join, rx{
     '/src/core' [ '.' <[c..z]> ]? '/Int.pm6#L' $<line>
 }, 'sourcery 42, "base", \(16)';
 
-# dies-ok { sourcery 'foo', 'say', \(42) }, 'sourcery "foo", "say", \(42) dies';
+dies-ok { sourcery 'foo', 'bar', \(42) }, 'sourcery "foo", "bar", \(42) dies';
+dies-ok { sourcery Any, 'elems' }, "sourcery 1|2, 'elems' dies";
+dies-ok { sourcery Any, 'sqrt' }, "sourcery Any, 'sqrt' dies";
 
 done-testing;
