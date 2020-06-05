@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/zoffixznet/perl6-CoreHackers-Sourcery.svg)](https://travis-ci.org/zoffixznet/perl6-CoreHackers-Sourcery)
+[![Build Status](https://travis-ci.org/raku-community-modules/perl6-CoreHackers-Sourcery.svg?branch=master)](https://travis-ci.org/raku-community-modules/perl6-CoreHackers-Sourcery)
 
 # NAME
 
