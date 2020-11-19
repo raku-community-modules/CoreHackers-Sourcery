@@ -14,5 +14,5 @@
         "CoreHackers::Sourcery" : "lib/CoreHackers/Sourcery.pm6"
     },
     "authors"       : ["Zoffix Znet"],
-    "support"       : {"source"   : "git://github.com/zoffixznet/perl6-CoreHackers-Sourcery.git"}
+    "support"       : {"source"   : "git://github.com/raku-community-modules/CoreHackers-Sourcery.git"}
 }
