@@ -1,5 +1,7 @@
 Revision history for CoreHackers-Sourcery
 
 {{$NEXT}}
+
+2.1  2022-05-27T21:27:38+02:00
     - Removed a lot of code that isn't needed anymore
     - First version in the zef ecosystem

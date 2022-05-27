@@ -19,9 +19,11 @@ multi sourcery($thing, Str:D $method, Capture:D $c) {
     die "Could not find candidate that can do $c.gist()";
 }
 
-multi sourcery($thing, Str:D $method) { do-sourcery $thing.^can($method).head }
-multi sourcery(&code                ) { do-sourcery &code }
-multi sourcery(&code, Capture $c    ) {
+multi sourcery(Mu $thing, Str:D $method) {
+    do-sourcery $thing.^can($method).head
+}
+multi sourcery(&code) { do-sourcery &code }
+multi sourcery(&code, Capture $c) {
     do-sourcery &code.cando($c).head
       // die "Could not find candidate that can do $c.gist()";
 }
