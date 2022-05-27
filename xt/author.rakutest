@@ -1,0 +1,74 @@
+use Test;
+use CoreHackers::Sourcery;
+
+plan 12;
+
+is &say.sourcery.elems, 2, 'sourcery returns a list of two items';
+
+like &say.sourcery.join, rx{
+    'src/core' [ '.' <[c..z]> ]? '/io_operators.' pm6 | rakumod ':' $<line>=\d+
+    'https://github.com/rakudo/rakudo/blob/'
+    <-[/]>+
+    '/src/core' [ '.' <[c..z]> ]? '/io_operators.' pm6 | rakumod '#L' $<line>
+}, '&say.sourcery';
+
+like &say.sourcery('foo').join, rx{
+    'src/core' [ '.' <[c..z]> ]? '/io_operators.' pm6 | rakumod ':' $<line>=\d+
+    'https://github.com/rakudo/rakudo/blob/'
+    <-[/]>+
+    '/src/core' [ '.' <[c..z]> ]? '/io_operators.' pm6 | rakumod '#L' $<line>
+}, '&say.sourcery("foo")';
+
+like Str.^can('say')[0].sourcery.join, rx{
+    'src/core' [ '.' <[c..z]> ]? '/Mu.' pm6 | rakumod ':' $<line>=\d+
+    'https://github.com/rakudo/rakudo/blob/'
+    <-[/]>+
+    '/src/core' [ '.' <[c..z]> ]? '/Mu.' pm6 | rakumod '#L' $<line>
+}, 'Str.say.sourcery';
+
+like sourcery(&say).join, rx{
+    'src/core' [ '.' <[c..z]> ]? '/io_operators.' pm6 | rakumod ':' $<line>=\d+
+    'https://github.com/rakudo/rakudo/blob/'
+    <-[/]>+
+    '/src/core' [ '.' <[c..z]> ]? '/io_operators.' pm6 | rakumod '#L' $<line>
+}, 'sourcery(&say)';
+
+like sourcery(Str, 'say').join, rx{
+    'src/core' [ '.' <[c..z]> ]? '/Mu.' pm6 | rakumod ':' $<line>=\d+
+    'https://github.com/rakudo/rakudo/blob/'
+    <-[/]>+
+    '/src/core' [ '.' <[c..z]> ]? '/Mu.' pm6 | rakumod '#L' $<line>
+}, 'sourcery Str, "say"';
+
+like sourcery('foo', 'say').join, rx{
+    'src/core' [ '.' <[c..z]> ]? '/Mu.' pm6 | rakumod ':' $<line>=\d+
+    'https://github.com/rakudo/rakudo/blob/'
+    <-[/]>+
+    '/src/core' [ '.' <[c..z]> ]? '/Mu.' pm6 | rakumod 'pm6#L' $<line>
+}, 'sourcery "foo", "say"';
+
+like sourcery('foo', 'say', \()).join, rx{
+    'src/core' [ '.' <[c..z]> ]? '/Mu.' pm6 | rakumod ':' $<line>=\d+
+    'https://github.com/rakudo/rakudo/blob/'
+    <-[/]>+
+    '/src/core' [ '.' <[c..z]> ]? '/Mu.' pm6 | rakumod '#L' $<line>
+}, 'sourcery "foo", "say", \()';
+
+like sourcery(42, 'base', \(16)).join, rx{
+    'src/core' [ '.' <[c..z]> ]? '/Int.' pm6 | rakumod ':' $<line>=\d+
+    'https://github.com/rakudo/rakudo/blob/'
+    <-[/]>+
+    '/src/core' [ '.' <[c..z]> ]? '/Int.' pm6 | rakumod '#L' $<line>
+}, 'sourcery 42, "base", \(16)';
+
+like sourcery(Any, 'elems').join, rx{
+    'src/core' [ '.' <[c..z]> ]? '/Any.' pm6 | rakumod ':' $<line>=\d+
+    'https://github.com/rakudo/rakudo/blob/'
+    <-[/]>+
+    '/src/core' [ '.' <[c..z]> ]? '/Any.' pm6 | rakumod '#L' $<line>
+}, 'sourcery Any, "elems"';
+
+dies-ok { sourcery 'foo', 'bar', \(42) }, 'sourcery "foo", "bar", \(42) dies';
+dies-ok { sourcery Any, 'sqrt' }, "sourcery Any, 'sqrt' dies";
+
+# vim: expandtab shiftwidth=4

@@ -1,6 +1,7 @@
-#!perl6
-
-use lib 'lib';
 use Test;
+
+plan 1;
+
 use-ok 'CoreHackers::Sourcery';
-done-testing;
+
+# vim: expandtab shiftwidth=4

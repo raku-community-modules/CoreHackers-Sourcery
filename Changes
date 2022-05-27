@@ -1,0 +1,5 @@
+Revision history for CoreHackers-Sourcery
+
+{{$NEXT}}
+    - Removed a lot of code that isn't needed anymore
+    - First version in the zef ecosystem

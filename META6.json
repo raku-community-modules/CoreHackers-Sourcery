@@ -1,18 +1,28 @@
 {
-    "perl"         : "6.c",
-    "name"         : "CoreHackers::Sourcery",
-    "license"      : "Artistic-2.0",
-    "version"      : "2.001006",
-    "description"  : "Helper for showing actual source code locations of core subs and methods",
-    "depends"      : [ ],
-    "test-depends" : [
-        "Test",
-        "Test::When",
-        "Test::META"
-    ],
-    "provides"     : {
-        "CoreHackers::Sourcery" : "lib/CoreHackers/Sourcery.pm6"
-    },
-    "authors"       : ["Zoffix Znet"],
-    "support"       : {"source"   : "git://github.com/raku-community-modules/CoreHackers-Sourcery.git"}
+  "auth": "zef:raku-community-modules",
+  "authors": [
+    "Zoffix Znet"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
+  "description": "Show source locations of core methods and subs",
+  "license": "Artistic-2.0",
+  "name": "CoreHackers::Sourcery",
+  "perl": "6.c",
+  "provides": {
+    "CoreHackers::Sourcery": "lib/CoreHackers/Sourcery.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "https://github.com/raku-community-modules/CoreHackers-Sourcery.git",
+  "support": {
+    "source": "git://github.com/raku-community-modules/CoreHackers-Sourcery.git"
+  },
+  "tags": [
+  ],
+  "test-depends": [
+  ],
+  "version": "2.1"
 }
