@@ -10,7 +10,7 @@ my constant $Commit = do with $*RAKU.compiler.version.Str -> $v is copy {
     $v.split('g').tail
 }
 
-multi sourcery($thing, Str:D $method, Capture:D $c = \()) {
+multi sourcery(Mu $thing, Str:D $method, Capture:D $c = \()) {
     for $thing.^can($method) -> $meth {
          with $meth.cando(\($thing, |$c)).first(*.defined) {
              return do-sourcery($_);
