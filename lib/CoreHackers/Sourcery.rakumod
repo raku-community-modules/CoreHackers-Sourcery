@@ -10,7 +10,7 @@ my constant $Commit = do with $*RAKU.compiler.version.Str -> $v is copy {
     $v.split('g').tail
 }
 
-multi sourcery($thing, Str:D $method, Capture:D $c) {
+multi sourcery(Mu $thing, Str:D $method, Capture:D $c = \()) {
     for $thing.^can($method) -> $meth {
          with $meth.cando(\($thing, |$c)).first(*.defined) {
              return do-sourcery($_);
@@ -19,9 +19,6 @@ multi sourcery($thing, Str:D $method, Capture:D $c) {
     die "Could not find candidate that can do $c.gist()";
 }
 
-multi sourcery(Mu $thing, Str:D $method) {
-    do-sourcery $thing.^can($method).head
-}
 multi sourcery(&code) { do-sourcery &code }
 multi sourcery(&code, Capture $c) {
     do-sourcery &code.cando($c).head
