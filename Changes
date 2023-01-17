@@ -2,6 +2,9 @@ Revision history for CoreHackers-Sourcery
 
 {{$NEXT}}
 
+2.2  2023-01-17T23:35:18+01:00
+    - Fixed the lookup of argument-less method calls
+
 2.1  2022-05-27T21:27:38+02:00
     - Removed a lot of code that isn't needed anymore
     - First version in the zef ecosystem
